@@ -14,11 +14,12 @@ expressQueen.listen(4040,() => {  //creates a port to run the app on
 
 
 require('dotenv').config()
-const express = require('express') 
+const express = require('express')
 const mongoose = require('mongoose')  //importing express and mongoose
 
-
 const app = express()
+
+app.use(express.json())
 
 //variables
 const dbLink = process.env.DBLINK   //reading the values in the .env
@@ -26,12 +27,21 @@ const port = process.env.PORT
 const userRoute = require('./src/routes/userRoute')
 
 
-mongoose.connect(dbLink, {useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true}, () => {
+mongoose.connect(dbLink, {
+  // useNewUrlParser: true,
+  // useUnifiedTopology: true,
+  // useCreateIndex: true,
+  // useFindAndModify: false
+}, () => {
+
   app.listen(port, () => {
-    console.log('DATABASE IS CONNECTED,SERVER IS UP');
+    console.log(`DATABASE IS CONNECTED,SERVER IS UP ON: ${port}`);
   });
 
 });
+
+//middleware
+// app.use(express.json())
 
 //routes
 app.use(userRoute)
@@ -39,7 +49,7 @@ app.use(userRoute)
 //callback function
 //app.use('/sm', express.static("public"))
 
-app.get('/' ,(req, res) => {
+app.get('/', (req, res) => {
   res.status(200).send('<h1>Hey, b</h1>',)
 
 })

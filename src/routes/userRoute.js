@@ -1,11 +1,11 @@
-const {Router} = require ('express')
+const { Router } = require('express')
 const router = Router()
 
 const {
     createUser,
     getUserDetails,
-    updateUserDetails, 
-    deleteUser 
+    updateUserDetails,
+    deleteUser
 } = require('../controllers/userController')
 
 // the route for creating an acount
